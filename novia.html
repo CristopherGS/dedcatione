@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quieres ser mi novia, Molina, López, Heidy, Gabriela Edith? Por favor.</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!-- Fireworks.js -->
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
+  <style>
+    /* Estilos para el ramo de rosas giratorio */
+    .roses {
+      width: 150px;
+      height: 150px;
+      background-image: url('./imagenes/ramo-rosas.png'); /* Reemplaza con la ruta de tu imagen */
+      background-size: cover;
+      animation: girar 5s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes girar {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Estilos para el osito */
+    .bear {
+      width: 150px;
+      height: 150px;
+      background-image: url('./imagenes/osito-normal.png'); /* Reemplaza con la ruta de tu imagen del osito normal */
+      background-size: cover;
+      transition: transform 0.5s ease, background-image 0.5s ease;
+      margin: 20px auto;
+    }
+
+    .bear.angry {
+      transform: scale(1.5);
+      background-image: url('./imagenes/osito-enojado.png'); /* Reemplaza con la ruta de tu imagen del osito enojado */
+    }
+
+    /* 
+      Estilos para el corazón latiendo 
+      Se ha hecho más grande (200px x 200px) 
+    */
+    .heart {
+      width: 200px;
+      height: 200px;
+      background-image: url('./imagenes/corazon.png'); /* Reemplaza con la ruta de tu imagen del corazón */
+      background-size: cover;
+      animation: latir 1s infinite;
+      margin: 20px auto;
+      position: relative;
+    }
+
+    @keyframes latir {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    /* Si deseas realmente mostrar el .gif, 
+       puedes eliminar el background-image y dejar solo el <img> 
+       o viceversa. Aquí solo muestro la idea.
+    */
+
+    /* Estilos para el regalo */
+    .gift {
+      width: 100px;
+      height: 100px;
+      background-image: url('./imagenes/regalo.png'); /* Reemplaza con la ruta de tu imagen de regalo */
+      background-size: cover;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 0;
+    }
+
+    /* Estilos para el modal */
+    #modalContent {
+      /* max-height y overflow-y removidos para permitir scroll completo */
+    }
+
+    /* Ajustes para Swiper */
+    .swiper-button-next, .swiper-button-prev {
+      color: #fff; /* Cambia el color de las flechas a tu gusto */
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #db2777; /* color de la paginación activa, ej: rosa */
+    }
+
+    /* Asegurar que el modal sea scrollable en dispositivos pequeños */
+    .modal-scrollable {
+      max-height: 90vh; /* Limitar la altura en móviles */
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 flex flex-col items-center justify-center p-4">
+  <!-- Contenedor Principal -->
+  <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
+    <h1 class="text-4xl font-bold mb-8 text-pink-600">¿Quieres ser mi novia, Molina, López, Heidy, Gabriela Edith? Por favor.</h1>
+    <!-- Botones de Respuesta -->
+    <div class="flex justify-center space-x-6 relative h-24 w-full">
+      <button 
+        id="siButton" 
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transition transform hover:scale-110">
+        Sí
+      </button>
+      <button 
+        id="noButton" 
+        class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg">
+        No
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de Dedicatoria -->
+  <div id="modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+    <div class="relative bg-white p-8 rounded-lg shadow-xl max-w-3xl w-full modal-scrollable">
+      <h2 
+        id="modalTitle" 
+        class="text-3xl font-bold mb-6 text-pink-600 text-center z-10 relative">
+        ¡Gracias por aceptar!
+      </h2>
+      <p 
+        id="modalContent" 
+        class="mb-6 text-justify relative z-10">
+        Me pediste que escribiera algo memorable, así que aquí está: mi recuerdo de la primera vez que te vi. Fue en el café de Donkin. Desde que entraste, no pude evitar sonreír. Incluso estaba nervioso mientras hablábamos, tanto que derramé mi café. Desde ese momento supe que había algo especial en ti, algo diferente. Esa hermosa sonrisa y esa energía única me dejaron sin palabras. También recuerdo perfectamente aquella vez que te escolté cerca de tu casa, solo para asegurarme de que estuvieras bien. Desde entonces, entendí que eras tú, la persona que siempre había buscado.
+        <br><br>
+        <em>"Eres la melodía que llena mi corazón, el verso que da vida a mis días."</em>
+        <br><br>
+        Corazón, no sé si alguna vez te lo he dicho con suficiente claridad, pero me encanta todo de ti. Tu sonrisa ilumina mis días, tus ojos tienen una forma de calmarme y hacerme sentir que todo estará bien, y tu forma de ser es simplemente mágica. Cada vez que estoy contigo, siento que el tiempo se detiene, y el mundo se vuelve más brillante, más especial. Hemos compartido momentos maravillosos, pero quiero muchos más. Quiero seguir construyendo contigo, creando experiencias que sean solo nuestras.
+        <br><br>
+        <em>"En cada latido de mi corazón, está tu nombre escrito."</em>
+        <br><br>
+        Con todo mi corazón y toda mi vida por delante contigo,
+        <br><br>
+        <strong>Cristopher Guerra</strong>
+      </p>
+      
+      <!-- Carrusel de Fotos y Videos (Usando Swiper.js) -->
+      <div class="swiper-container carousel mb-6 relative z-10">
+        <div class="swiper-wrapper">
+          <!-- Slides de Fotos/Video -->
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/1.jpg" alt="Foto 1" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <video controls class="mx-auto">
+              <source src="./fotos/7.mp4" type="video/mp4" />
+              Tu navegador no soporta el elemento de video.
+            </video>
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/2.jpg" alt="Foto 2" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/3.jpg" alt="Foto 3" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/4.jpg" alt="Foto 4" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/5.jpg" alt="Foto 5" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/6.jpg" alt="Foto 6" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/8.jpg" alt="Foto 8" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/9.jpg" alt="Foto 9" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/10.jpg" alt="Foto 10" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/11.jpg" alt="Foto 11" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/12.jpg" alt="Foto 12" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/13.jpg" alt="Foto 13" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/14.jpg" alt="Foto 14" />
+          </div>
+          <div class="swiper-slide carousel-item">
+            <img src="./fotos/15.jpg" alt="Foto 15" />
+          </div>
+        </div>
+        <!-- Controles: Flechas y Paginación (Swiper) -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <!-- Corazón Latiendo (ahora más grande) -->
+      <div class="heart flex items-center justify-center">
+        <!-- La <img> es opcional: 
+             Si quieres mostrar el gif en lugar del background-image, 
+             puedes quitar `background-image` en .heart y dejar esta etiqueta. 
+        -->
+        <img src="./fotos/DDm.gif" alt="corazon gif" class="object-cover w-full h-full" />
+      </div>
+
+      <!-- Control de Audio -->
+      <audio id="backgroundMusic" src="./musica/adele.mp3" preload="auto"></audio>
+    </div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script>
+    // Elementos del DOM
+    const siButton = document.getElementById('siButton');
+    const noButton = document.getElementById('noButton');
+    const modal = document.getElementById('modal');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    let swiper; // Variable para la instancia de Swiper
+
+    // Array de textos para el botón "No"
+    const noButtonTexts = [
+      "¿De verdad no quieres?",
+      "¿Seguro que no?",
+      "¿Por qué no?",
+      "¿No me quieres?",
+      "¿Me estás rechazando?",
+      "¿No quieres estar conmigo?",
+      "¿No te interesa?",
+      "¿Te asusta?",
+      "¿No sientes lo mismo?",
+      "¿Quieres pensarlo más?"
+    ];
+
+    // Evento para el botón "Sí"
+    siButton.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      // Reproducir música automáticamente
+      backgroundMusic.play().catch(error => {
+        console.log('Autoplay bloqueado, la música se iniciará al interactuar.');
+      });
+
+      // Iniciar fuegos artificiales
+      startFireworks();
+
+      // Iniciar Swiper después de que el modal se muestre
+      setTimeout(() => {
+        if (!swiper) {
+          swiper = new Swiper('.swiper-container', {
+            loop: true,
+            /* Velocidad de transición entre slides */
+            speed: 600,
+            /* Controles de navegación */
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            /* Paginación */
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            autoplay: {
+              delay: 4000,
+              disableOnInteraction: false,
+            },
+            slidesPerView: 1,
+            spaceBetween: 10,
+            // Responsive breakpoints
+            breakpoints: {
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+            },
+          });
+        } else {
+          swiper.update(); // Actualizar Swiper si ya está inicializado
+        }
+      }, 500); // Esperar 0.5 segundos para asegurar que el modal esté visible
+    });
+
+    // Evento para el botón "No"
+    noButton.addEventListener('click', () => {
+      // Cambiar el texto del botón "No"
+      const randomText = noButtonTexts[Math.floor(Math.random() * noButtonTexts.length)];
+      noButton.textContent = randomText;
+
+      // Si tienes un osito con ID="bear", aquí podrías añadir la clase 'angry'
+      // pero recuerda incluir el HTML del osito en el DOM
+      // Ejemplo:
+      // const bear = document.getElementById('bear');
+      // bear.classList.add('angry');
+      // setTimeout(() => {
+      //   bear.classList.remove('angry');
+      // }, 1000);
+    });
+
+    // Función para iniciar los fuegos artificiales
+    function startFireworks() {
+      const fireworks = new Fireworks.default(document.body, {
+        hue: { min: 0, max: 360 },
+        delay: { min: 15, max: 30 },
+        rocketsPoint: 50,
+        speed: 2,
+        acceleration: 1.05,
+        friction: 0.98,
+        gravity: 1.5,
+        particles: 50,
+        trace: 3,
+        explosion: 5,
+        autoresize: true,
+        brightness: { min: 50, max: 80 },
+        flickering: 50,
+        sound: { enabled: false }
+      });
+      fireworks.start();
+
+      // Detener los fuegos después de 15 segundos
+      setTimeout(() => {
+        fireworks.stop();
+      }, 15000);
+    }
+  </script>
+</body>
+</html>
